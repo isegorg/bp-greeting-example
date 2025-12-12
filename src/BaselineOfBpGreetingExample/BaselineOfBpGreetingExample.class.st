@@ -5,6 +5,17 @@ Class {
 }
 
 { #category : #loading }
+BaselineOfBpGreetingExample class >> loadAndTangleGt4BpLepiter [
+	| anEnvironment gt4BpBaselineSymbol |
+	gt4BpBaselineSymbol := #BaselineOfGt4BP.
+	anEnvironment := Smalltalk globals.
+	anEnvironment
+		at: gt4BpBaselineSymbol
+		ifPresent: [ :class | gt4BpBaselineSymbol class loadLepiter ]
+		ifAbsent: [ "NotFound signalFor: gt4BpBaselineSymbol in: anEnvironment" ]
+]
+
+{ #category : #loading }
 BaselineOfBpGreetingExample class >> loadLepiter [
 	IceRepository registry  
 		detect: [ :aRepository |
@@ -37,7 +48,10 @@ BaselineOfBpGreetingExample >> baseline: spec [
 BaselineOfBpGreetingExample >> gt4Bp: spec [.
 	spec
 		baseline: 'Gt4BP'
-		with: [ spec repository: 'github://isegorg/gt4bp:main/src' ]
+		with: [ 
+			spec
+				repository: 'github://isegorg/gt4bp:main/src';
+				postLoadDoIt: #'postLoadChanges:' ]
 ]
 
 { #category : #baseline }
@@ -45,4 +59,9 @@ BaselineOfBpGreetingExample >> lepiterLiterate: spec [.
 	spec
 		baseline: 'LepiterLiterate'
 		with: [ spec repository: 'github://blueplanelabs/lepiter-literate:main/src' ]
+]
+
+{ #category : #loading }
+BaselineOfBpGreetingExample >> postLoadChanges: spec [
+	self class loadAndTangleGt4BpLepiter
 ]
