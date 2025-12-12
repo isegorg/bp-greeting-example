@@ -11,7 +11,7 @@ BaselineOfBpGreetingExample class >> loadAndTangleGt4BpLepiter [
 	anEnvironment := Smalltalk globals.
 	anEnvironment
 		at: gt4BpBaselineSymbol
-		ifPresent: [ :class | gt4BpBaselineSymbol class loadLepiter ]
+		ifPresent: [ :class | gt4BpBaselineSymbol asClass loadLepiter ]
 		ifAbsent: [ "NotFound signalFor: gt4BpBaselineSymbol in: anEnvironment" ]
 ]
 
