@@ -5,14 +5,22 @@ Class {
 }
 
 { #category : #loading }
-BaselineOfBpGreetingExample class >> loadAndTangleGt4BpLepiter [
-	| anEnvironment gt4BpBaselineSymbol |
+BaselineOfBpGreetingExample class >> loadAndProcessKnowledgeGt4BpLepiter [
+	"NotFound signalFor: gt4BpBaselineSymbol in: anEnvironment"
+
+	self loadGt4BpLepiter.
+	self processKnowledgeGt4BpLepiter
+]
+
+{ #category : #loading }
+BaselineOfBpGreetingExample class >> loadGt4BpLepiter [
+	| gt4BpBaselineSymbol anEnvironment |
 	gt4BpBaselineSymbol := #BaselineOfGt4BP.
 	anEnvironment := Smalltalk globals.
 	anEnvironment
 		at: gt4BpBaselineSymbol
 		ifPresent: [ :class | gt4BpBaselineSymbol asClass loadLepiter ]
-		ifAbsent: [ "NotFound signalFor: gt4BpBaselineSymbol in: anEnvironment" ]
+		ifAbsent: [  "NotFound signalFor: gt4BpBaselineSymbol in: anEnvironment" ]
 ]
 
 { #category : #loading }
@@ -28,6 +36,12 @@ BaselineOfBpGreetingExample class >> loadLepiter [
 			defaultDatabase reload ]
 		ifNone: [
 			self inform: 'Repository not found.' ]
+]
+
+{ #category : #loading }
+BaselineOfBpGreetingExample class >> processKnowledgeGt4BpLepiter [
+	(LeDatabasesRegistry defaultLogicalDatabase
+		databaseNamed: 'isegorg/gt4bp/lepiter') processKnowledge
 ]
 
 { #category : #baseline }
@@ -63,5 +77,5 @@ BaselineOfBpGreetingExample >> lepiterLiterate: spec [.
 
 { #category : #loading }
 BaselineOfBpGreetingExample >> postLoadChanges: spec [
-	self class loadAndTangleGt4BpLepiter
+	self class loadAndProcessKnowledgeGt4BpLepiter
 ]
