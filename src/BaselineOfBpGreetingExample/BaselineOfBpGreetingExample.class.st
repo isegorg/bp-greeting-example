@@ -22,7 +22,17 @@ BaselineOfBpGreetingExample class >> loadLepiter [
 { #category : #baseline }
 BaselineOfBpGreetingExample >> baseline: spec [
 	<baseline>
-		^ spec for: #common do: [
-			spec package: 'BpCliGreetingExample'
-		]
+	^ spec
+		for: #common
+		do: [ self gt4Bp: spec.
+			spec
+				package: 'BpCliGreetingExample'
+				with: [ spec requires: #('Gt4BP') ] ]
+]
+
+{ #category : #baseline }
+BaselineOfBpGreetingExample >> gt4Bp: spec [.
+	spec
+		baseline: 'Gt4BP'
+		with: [ spec repository: 'github://isegorg/gt4bp:main/src' ]
 ]
