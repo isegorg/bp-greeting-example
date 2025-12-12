@@ -24,10 +24,13 @@ BaselineOfBpGreetingExample >> baseline: spec [
 	<baseline>
 	^ spec
 		for: #common
-		do: [ self gt4Bp: spec.
+		do: [
+			self
+				lepiterLiterate: spec;
+				gt4Bp: spec.
 			spec
 				package: 'BpCliGreetingExample'
-				with: [ spec requires: #('Gt4BP') ] ]
+				with: [ spec requires: #('LepiterLiterate' 'Gt4BP') ] ]
 ]
 
 { #category : #baseline }
@@ -35,4 +38,11 @@ BaselineOfBpGreetingExample >> gt4Bp: spec [.
 	spec
 		baseline: 'Gt4BP'
 		with: [ spec repository: 'github://isegorg/gt4bp:main/src' ]
+]
+
+{ #category : #baseline }
+BaselineOfBpGreetingExample >> lepiterLiterate: spec [.
+	spec
+		baseline: 'LepiterLiterate'
+		with: [ spec repository: 'github://blueplanelabs/lepiter-literate:main/src' ]
 ]
