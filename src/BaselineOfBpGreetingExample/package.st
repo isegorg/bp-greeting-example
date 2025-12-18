@@ -1,1 +1,1 @@
-Package { #name : #BaselineOfBpGreetingExample }
+Package { #name : 'BaselineOfBpGreetingExample' }

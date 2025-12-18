@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfBpGreetingExample,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfBpGreetingExample
+	#name : 'BaselineOfBpGreetingExample',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfBpGreetingExample',
+	#package : 'BaselineOfBpGreetingExample'
 }
 
-{ #category : #loading }
+{ #category : 'loading' }
 BaselineOfBpGreetingExample class >> loadAndProcessKnowledgeGt4BpLepiter [
 	"NotFound signalFor: gt4BpBaselineSymbol in: anEnvironment"
 
@@ -12,7 +13,7 @@ BaselineOfBpGreetingExample class >> loadAndProcessKnowledgeGt4BpLepiter [
 	self processKnowledgeGt4BpLepiter
 ]
 
-{ #category : #loading }
+{ #category : 'loading' }
 BaselineOfBpGreetingExample class >> loadGt4BpLepiter [
 	| gt4BpBaselineSymbol anEnvironment |
 	gt4BpBaselineSymbol := #BaselineOfGt4BP.
@@ -23,7 +24,7 @@ BaselineOfBpGreetingExample class >> loadGt4BpLepiter [
 		ifAbsent: [  "NotFound signalFor: gt4BpBaselineSymbol in: anEnvironment" ]
 ]
 
-{ #category : #loading }
+{ #category : 'loading' }
 BaselineOfBpGreetingExample class >> loadLepiter [
 	IceRepository registry  
 		detect: [ :aRepository |
@@ -38,18 +39,19 @@ BaselineOfBpGreetingExample class >> loadLepiter [
 			self inform: 'Repository not found.' ]
 ]
 
-{ #category : #loading }
+{ #category : 'loading' }
 BaselineOfBpGreetingExample class >> processKnowledgeGt4BpLepiter [
 	(LeDatabasesRegistry defaultLogicalDatabase
 		databaseNamed: 'isegorg/gt4bp/lepiter') processKnowledge
 ]
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfBpGreetingExample >> baseline: spec [
 	<baseline>
 	^ spec
 		for: #common
 		do: [
+	    spec postLoadDoIt: #postLoadChanges:.
 			self
 				lepiterLiterate: spec;
 				gt4Bp: spec.
@@ -58,24 +60,23 @@ BaselineOfBpGreetingExample >> baseline: spec [
 				with: [ spec requires: #('LepiterLiterate' 'Gt4BP') ] ]
 ]
 
-{ #category : #baseline }
-BaselineOfBpGreetingExample >> gt4Bp: spec [.
+{ #category : 'baseline' }
+BaselineOfBpGreetingExample >> gt4Bp: spec [
 	spec
 		baseline: 'Gt4BP'
 		with: [ 
 			spec
-				repository: 'github://isegorg/gt4bp:main/src';
-				postLoadDoIt: #'postLoadChanges:' ]
+				repository: 'github://isegorg/gt4bp:main/src' ]
 ]
 
-{ #category : #baseline }
-BaselineOfBpGreetingExample >> lepiterLiterate: spec [.
+{ #category : 'baseline' }
+BaselineOfBpGreetingExample >> lepiterLiterate: spec [
 	spec
 		baseline: 'LepiterLiterate'
 		with: [ spec repository: 'github://blueplanelabs/lepiter-literate:main/src' ]
 ]
 
-{ #category : #loading }
+{ #category : 'loading' }
 BaselineOfBpGreetingExample >> postLoadChanges: spec [
 	self class loadAndProcessKnowledgeGt4BpLepiter
 ]
