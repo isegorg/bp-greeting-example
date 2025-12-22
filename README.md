@@ -64,5 +64,5 @@ If the program runs as expected it should print the following two events in the 
 {"name":"nameProvided","data":{"name":"John"},"type":"eventFired"}
 {"name":"nameGreeted","data":{"greeting":"Hello John!"},"type":"eventFired"}
 ```
-## SpecificationsS
-Several specifications can be found in [wiki-specifications](https://github.com/isegorg/bp-greeting-example/wiki))ki
+## Specifications
+Several specifications can be found at: [Specifications](https://github.com/isegorg/bp-greeting-example/wiki)
